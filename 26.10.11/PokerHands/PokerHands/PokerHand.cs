@@ -136,16 +136,13 @@ namespace PokerHands.PokerHands
 
         public bool BetterThan(PokerHand otherHand)
         {
-
-            if (IsPair && otherHand.IsThreeOfaKind)
-                return false;
-            if (otherHand.IsPair && IsThreeOfaKind)
-                return true;
-            if( IsPair && otherHand.IsPair)
-            {
-                return GetPairValue() > otherHand.GetPairValue();
-            }
-            return false;
+            var betterRank = otherHand.IsFourOfAKind && IsStraightFlush
+                             || otherHand.IsFullHouse && IsFourOfAKind
+                             || otherHand.IsFlush && IsFullHouse
+                             || otherHand.IsStraight && IsFlush
+                             || otherHand.IsThreeOfaKind && IsStraight
+                             || otherHand.IsPair && IsThreeOfaKind;
+            return betterRank;
         }
 
         private int GetPairValue()

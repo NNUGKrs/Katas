@@ -95,15 +95,48 @@ namespace PokerHands.Test
         }
 
         [Test]
-        public void It_should_rank_One_Pair_Over_Another()
+        public void It_should_say_straight_is_better_than_threeofakind()
         {
-            PokerHand hand1= new PokerHand(pair1);
-            PokerHand hand2 = new PokerHand(pair2);
-            Assert.IsTrue(hand2.BetterThan(hand1));
-            Assert.IsFalse(hand1.BetterThan(hand2));
+            var three = new PokerHand(threeOfaKind);
+            var straightHand = new PokerHand(straight);
+            Assert.IsTrue(straightHand.BetterThan(three));
+            Assert.IsFalse(three.BetterThan(straightHand));
         }
 
+        [Test]
+        public void It_should_say_flush_is_better_than_straight()
+        {
+            var straightHand = new PokerHand(straight);
+            var flushHand = new PokerHand(flush);
+            Assert.IsTrue(flushHand.BetterThan(straightHand));
+            Assert.IsFalse(straightHand.BetterThan(flushHand));
+        }
 
+        [Test]
+        public void It_should_say_full_house_is_better_than_flush()
+        {
+            var flushHand = new PokerHand(flush);
+            var fullHouseHand = new PokerHand(fullHouse);
+            Assert.IsTrue(fullHouseHand.BetterThan(flushHand));
+            Assert.IsFalse(flushHand.BetterThan(fullHouseHand));
+        }
 
+        [Test]
+        public void It_should_say_four_of_a_kind_is_better_than_full_house()
+        {
+            var fullHouseHand = new PokerHand(fullHouse);
+            var fourOfaKindHand = new PokerHand(fourOfaKind);
+            Assert.IsTrue(fourOfaKindHand.BetterThan(fullHouseHand));
+            Assert.IsFalse(fullHouseHand.BetterThan(fourOfaKindHand));
+        }
+
+        [Test]
+        public void It_should_say_straight_flush_is_better_than_foure_of_a_kind()
+        {
+            var fourOfaKindHand = new PokerHand(fourOfaKind);
+            var straightFlushHand = new PokerHand(straightFlush);
+            Assert.IsTrue(straightFlushHand.BetterThan(fourOfaKindHand));
+            Assert.IsFalse(fourOfaKindHand.BetterThan(straightFlushHand));
+        }
     }
 }
